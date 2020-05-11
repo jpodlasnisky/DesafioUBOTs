@@ -1,0 +1,165 @@
+swagger: "2.0"
+info:
+  description: "Essa API foi desenvolvida para atender os requisitos solicitados no desafio prático da UBOTs."
+  version: "1.0"
+  title: "Desafio Técnico - João Pedro Podlasnisky"
+basePath: "/v1"
+schemes:
+- "https"
+paths:
+  /clientesGastoTotal:
+    get:
+      tags:
+      - "cliente"
+      summary: "Retorna os clientes ordenados de forma decrescente com base no total de compras realizado"
+      operationId: "clientesGastoTotal"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Clientes ordenados pelo total de compras"
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/Cliente'
+        500:
+          description: "Status 500"
+          schema:
+            $ref: "#/definitions/Erro"
+      security:
+      - api_key: []
+  /clienteMaiorCompraUnica:
+    get:
+      tags:
+      - "cliente"
+      summary: "Retorna o cliente com maior valor gasto em uma única compra"
+      operationId: "clienteMaiorCompraUnica"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Cliente com maior compra única"
+          schema:
+            $ref: '#/definitions/Cliente'
+        500:
+          description: "Status 500"
+          schema:
+            $ref: "#/definitions/Erro"
+      security:
+      - api_key: []
+  /clientesMaisFieis/{tamanhoLista}:
+    get:
+      tags:
+      - "cliente"
+      summary: "Retorna os clientes com maior número de compras"
+      operationId: "clientesMaisFieis"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tamanhoLista"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Cliente com maior compra única"
+          schema:
+            type: "array"
+            items: 
+              $ref: '#/definitions/Cliente'
+        500:
+          description: "Status 500"
+          schema:
+            $ref: "#/definitions/Erro"    
+      security:
+      - api_key: []
+  /recomendacaoVinho/{cpfCliente}:
+    get:
+      tags:
+      - "vinho"
+      summary: "Recomenda um vinho com base no histórico de compras de um determinado cliente"
+      operationId: "recomendacaoVinho"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cpfCliente"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Vinho recomendado"
+          schema:
+            $ref: '#/definitions/VinhoRecomendado'
+        500:
+          description: "Status 500"
+          schema:
+            $ref: "#/definitions/Erro"   
+      security:
+      - api_key: [] 
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  Erro:
+    type: "object"
+    properties:
+      Mensagem:
+        type: "string"
+  Cliente:
+    type: "object"
+    description: "Dados do cliente"
+    properties:
+      nomeCliente:
+        type: "string"
+        description: "Nome do Cliente"
+        minLength: 1
+      cpfClientes:
+        type: "string"
+        description: "CPF do Cliente"
+        minLength: 1
+      totalEmComprasDoCliente:
+        type: "number"
+        description: "Total em compras realizadas pelo cliente"
+        minLength: 1
+      maiorCompraUnicaDoCliente:
+        type: "number"
+        description: "Maior compra única do cliente"
+        minLength: 1
+      quantidadeDeComprasDoCliente:
+        type: "integer"
+        description: "Quantidade de compras realizadas (fidelidade do cliente)"
+        minLength: 1
+  VinhoRecomendado:
+    type: "object"
+    description: "Recomendação de vinho para um cliente determinado"
+    properties:
+      produto: 
+        type: "string"
+        description: "Nome do Produto"
+        minLength: 1
+      variedade: 
+        type: "string"
+        description: "Variedade do Vinho"
+        minLength: 1
+      pais: 
+        type: "string"
+        description: "País de origem do vinho"
+        minLength: 1
+      categoria: 
+        type: "string"
+        description: "Categoria do Vinho"
+        minLength: 1
+      safra: 
+        type: "integer"
+        description: "Ano da Safra do Vinho"
+        minLength: 4
+      preco: 
+        type: "number"
+        description: "Preço do Vinho"
+        minLength: 1
+  Token:
+    type: "string"
+    minLength: 1
