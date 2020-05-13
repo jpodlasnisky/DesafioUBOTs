@@ -47,9 +47,7 @@ func configureAPI(api *operations.DesafioUbotsAPI) http.Handler {
 		return nil, errors.New(401, "Unauthorized")
 	}
 	api.ClienteClientesMaisFieisHandler = cliente.ClientesMaisFieisHandlerFunc(func(params cliente.ClientesMaisFieisParams, principal *models.Token) middleware.Responder {
-		return cliente.NewClientesMaisFieisOK().WithPayload(casadevinhos.RetornaDados())
-		// casadevinhos.RetornaDados()
-		// return cliente.NewClientesMaisFieisOK().WithPayload(casadevinhos.OrdenaMaiorCompraUnica())
+		return cliente.NewClientesMaisFieisOK().WithPayload(casadevinhos.RetornaClientesMaisFieis())
 	})
 
 	api.ClienteClienteMaiorCompraUnicaHandler = cliente.ClienteMaiorCompraUnicaHandlerFunc(func(params cliente.ClienteMaiorCompraUnicaParams, principal *models.Token) middleware.Responder {
@@ -58,6 +56,10 @@ func configureAPI(api *operations.DesafioUbotsAPI) http.Handler {
 	// clientesGastoTotal
 	api.ClienteClientesGastoTotalHandler = cliente.ClientesGastoTotalHandlerFunc(func(params cliente.ClientesGastoTotalParams, principal *models.Token) middleware.Responder {
 		return cliente.NewClientesGastoTotalOK().WithPayload(casadevinhos.OrdenaClientesMaiorValorTotalEmCompras())
+	})
+
+	api.VinhoRecomendacaoVinhoHandler = vinho.RecomendacaoVinhoHandlerFunc(func(params vinho.RecomendacaoVinhoParams, principal *models.Token) middleware.Responder {
+		return vinho.NewRecomendacaoVinhoOK().WithPayload(casadevinhos.RetornaVinhoMaisCompradoPeloCliente(params.CpfCliente))
 	})
 
 	// Set your custom authorizer if needed. Default one is security.Authorized()

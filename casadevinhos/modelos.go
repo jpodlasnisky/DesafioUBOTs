@@ -7,12 +7,13 @@ type clienteAPI struct {
 }
 
 type item struct {
-	Produto   string `json:"prduto"`
-	Variedade string `json:"variedade"`
-	Pais      string `json:"pais"`
-	Categoria string `json:"categoria"`
-	Safra     string `json:"safra"`
-	Preco     string `json:"preco"`
+	Produto    string  `json:"produto"`
+	Variedade  string  `json:"variedade"`
+	Pais       string  `json:"pais"`
+	Categoria  string  `json:"categoria"`
+	Safra      int64   `json:"safra"`
+	Preco      float64 `json:"preco"`
+	Quantidade int
 }
 
 type compra struct {
