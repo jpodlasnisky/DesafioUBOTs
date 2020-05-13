@@ -5,7 +5,7 @@ info:
   title: "Desafio Técnico - João Pedro Podlasnisky"
 basePath: "/v1"
 schemes:
-- "https"
+- "http"
 paths:
   /clientesGastoTotal:
     get:
@@ -123,15 +123,12 @@ definitions:
       totalEmComprasDoCliente:
         type: "number"
         description: "Total em compras realizadas pelo cliente"
-        minLength: 1
       maiorCompraUnicaDoCliente:
         type: "number"
         description: "Maior compra única do cliente"
-        minLength: 1
       quantidadeDeComprasDoCliente:
         type: "integer"
         description: "Quantidade de compras realizadas (fidelidade do cliente)"
-        minLength: 1
   VinhoRecomendado:
     type: "object"
     description: "Recomendação de vinho para um cliente determinado"
@@ -155,11 +152,9 @@ definitions:
       safra: 
         type: "integer"
         description: "Ano da Safra do Vinho"
-        minLength: 4
       preco: 
         type: "number"
         description: "Preço do Vinho"
-        minLength: 1
   Token:
     type: "string"
     minLength: 1
