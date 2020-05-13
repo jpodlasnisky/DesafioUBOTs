@@ -23,11 +23,11 @@ var valorMaiorCompra float64 = 0.
 
 var clienteMaiorCompra string
 
-var vinhosCompradosCliente map[int][]item
+var vinhosCompradosCliente = make(map[int][]item)
 
 // processaDados Calculo o total em compras realizado por cada cliente
 func processaDados() {
-
+	DadosClientes = nil
 	// Busca dados das APIs
 	listaDeClientes := make([]clienteAPI, 0)
 
@@ -80,21 +80,22 @@ func processaDados() {
 					clienteMaiorCompra = compra.Cliente
 				}
 			}
-
-			// percorre itens da compra
-			for _, item := range compra.Itens {
-				var jaComprouEsseVinho = false
-				// percorre todos os itens do cliente para comparar com o item da compra
-				for _, itemCliente := range vinhosCompradosCliente[converteCPF(compra.Cliente)] {
-					// Se o cliente já comprou esse vinho, incrementa a quantidade
-					if ComparaItens(item, itemCliente) {
-						itemCliente.Quantidade++
-						jaComprouEsseVinho = true
+			if converteCPF(compra.Cliente) == converteCPF(novoCliente.Cpf) {
+				// percorre itens da compra
+				for _, item := range compra.Itens {
+					var jaComprouEsseVinho = false
+					// percorre todos os itens do cliente para comparar com o item da compra
+					for indice, itemCliente := range vinhosCompradosCliente[converteCPF(compra.Cliente)] {
+						// Se o cliente já comprou esse vinho, incrementa a quantidade
+						if ComparaItens(item, itemCliente) {
+							vinhosCompradosCliente[converteCPF(compra.Cliente)][indice].Quantidade++
+							jaComprouEsseVinho = true
+						}
 					}
-				}
-				// Se o cliente ainda não comprou esse vinho antes, adiciona o item na lista de vinhos comprados pelo cliente
-				if !jaComprouEsseVinho {
-					vinhosCompradosCliente[converteCPF(compra.Cliente)] = append(vinhosCompradosCliente[converteCPF(compra.Cliente)], item)
+					// Se o cliente ainda não comprou esse vinho antes, adiciona o item na lista de vinhos comprados pelo cliente
+					if !jaComprouEsseVinho {
+						vinhosCompradosCliente[converteCPF(compra.Cliente)] = append(vinhosCompradosCliente[converteCPF(compra.Cliente)], item)
+					}
 				}
 			}
 
@@ -103,12 +104,6 @@ func processaDados() {
 		novoCliente.QuantidadeDeComprasDoCliente = quantasVezesComprou
 		novoCliente.TotalEmComprasDoCliente = valorTotalDeCompraHistoricoCliente
 		DadosClientes = append(DadosClientes, &novoCliente)
-
-		// fmt.Println("cliente:", novoCliente.CpfClientes, "valor total:", valorTotalDeCompraHistoricoCliente)
-
-		// fmt.Println("o cliente", novoCliente.CpfClientes, "comprou", quantasVezesComprou, "vezes")
-
-		// fmt.Println("o cliente", clienteMaiorCompra, "foi o que fez a maior compra única em 2016, gastando:", valorMaiorCompra, "Reais")
 	}
 
 }
@@ -174,12 +169,6 @@ func RetornaClientesMaisFieis() []*models.Cliente {
 		return Dados[i].QuantidadeDeComprasDoCliente > Dados[j].QuantidadeDeComprasDoCliente
 	})
 	return Dados
-
-	// fmt.Println("cliente:", novoCliente.CpfClientes, "valor total:", valorTotalDeCompraHistoricoCliente)
-
-	// fmt.Println("o cliente", novoCliente.CpfClientes, "comprou", quantasVezesComprou, "vezes")
-
-	// fmt.Println("o cliente", clienteMaiorCompra, "foi o que fez a maior compra única em 2016, gastando:", valorMaiorCompra, "Reais")
 }
 
 // ComparaItens compara item a item para contagem de vinhos unicos por cliente
