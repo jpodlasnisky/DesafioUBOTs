@@ -153,7 +153,7 @@ func init() {
         "operationId": "recomendacaoVinho",
         "parameters": [
           {
-            "type": "integer",
+            "type": "string",
             "name": "cpfCliente",
             "in": "path",
             "required": true
@@ -181,7 +181,7 @@ func init() {
       "description": "Dados do cliente",
       "type": "object",
       "properties": {
-        "cpfClientes": {
+        "cpf": {
           "description": "CPF do Cliente",
           "type": "string",
           "minLength": 1
@@ -396,7 +396,7 @@ func init() {
         "operationId": "recomendacaoVinho",
         "parameters": [
           {
-            "type": "integer",
+            "type": "string",
             "name": "cpfCliente",
             "in": "path",
             "required": true
@@ -424,7 +424,7 @@ func init() {
       "description": "Dados do cliente",
       "type": "object",
       "properties": {
-        "cpfClientes": {
+        "cpf": {
           "description": "CPF do Cliente",
           "type": "string",
           "minLength": 1

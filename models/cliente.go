@@ -19,7 +19,7 @@ type Cliente struct {
 
 	// CPF do Cliente
 	// Min Length: 1
-	CpfClientes string `json:"cpfClientes,omitempty"`
+	Cpf string `json:"cpf,omitempty"`
 
 	// Maior compra única do cliente
 	MaiorCompraUnicaDoCliente float64 `json:"maiorCompraUnicaDoCliente,omitempty"`
@@ -39,7 +39,7 @@ type Cliente struct {
 func (m *Cliente) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCpfClientes(formats); err != nil {
+	if err := m.validateCpf(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -53,13 +53,13 @@ func (m *Cliente) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Cliente) validateCpfClientes(formats strfmt.Registry) error {
+func (m *Cliente) validateCpf(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CpfClientes) { // not required
+	if swag.IsZero(m.Cpf) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("cpfClientes", "body", string(m.CpfClientes), 1); err != nil {
+	if err := validate.MinLength("cpf", "body", string(m.Cpf), 1); err != nil {
 		return err
 	}
 

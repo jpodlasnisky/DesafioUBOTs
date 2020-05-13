@@ -11,7 +11,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewRecomendacaoVinhoParams creates a new RecomendacaoVinhoParams object
@@ -34,7 +33,7 @@ type RecomendacaoVinhoParams struct {
 	  Required: true
 	  In: path
 	*/
-	CpfCliente int64
+	CpfCliente string
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -67,11 +66,7 @@ func (o *RecomendacaoVinhoParams) bindCpfCliente(rawData []string, hasKey bool, 
 	// Required: true
 	// Parameter is provided by construction from the route
 
-	value, err := swag.ConvertInt64(raw)
-	if err != nil {
-		return errors.InvalidType("cpfCliente", "path", "int64", raw)
-	}
-	o.CpfCliente = value
+	o.CpfCliente = raw
 
 	return nil
 }

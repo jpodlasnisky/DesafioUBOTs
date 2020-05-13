@@ -10,13 +10,11 @@ import (
 	"net/url"
 	golangswaggerpaths "path"
 	"strings"
-
-	"github.com/go-openapi/swag"
 )
 
 // RecomendacaoVinhoURL generates an URL for the recomendacao vinho operation
 type RecomendacaoVinhoURL struct {
-	CpfCliente int64
+	CpfCliente string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -44,7 +42,7 @@ func (o *RecomendacaoVinhoURL) Build() (*url.URL, error) {
 
 	var _path = "/recomendacaoVinho/{cpfCliente}"
 
-	cpfCliente := swag.FormatInt64(o.CpfCliente)
+	cpfCliente := o.CpfCliente
 	if cpfCliente != "" {
 		_path = strings.Replace(_path, "{cpfCliente}", cpfCliente, -1)
 	} else {

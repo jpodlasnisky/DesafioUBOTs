@@ -55,18 +55,18 @@ func processaDados() {
 	for _, cliente := range listaDeClientes {
 		var novoCliente models.Cliente
 		novoCliente.NomeCliente = cliente.Nome
-		novoCliente.CpfClientes = cliente.CPF
+		novoCliente.Cpf = cliente.CPF
 		var quantasVezesComprou int64
 		var valorTotalDeCompraHistoricoCliente float64 = 0
 		var maiorCompraUnicaDoCliente float64
 
-		vinhosCompradosCliente[converteCPF(novoCliente.CpfClientes)] = make([]item, 0)
+		vinhosCompradosCliente[converteCPF(novoCliente.Cpf)] = make([]item, 0)
 		//a := make([]int, 5)
 
 		for _, compra := range listaDeCompras {
 			//verificar se a compra é do cliente e soma o valor total de compra
 
-			if converteCPF(compra.Cliente) == converteCPF(novoCliente.CpfClientes) {
+			if converteCPF(compra.Cliente) == converteCPF(novoCliente.Cpf) {
 				valorTotalDeCompraHistoricoCliente += compra.ValorTotal
 				quantasVezesComprou++
 				if compra.ValorTotal > maiorCompraUnicaDoCliente {
