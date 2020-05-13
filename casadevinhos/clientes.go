@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/bradfitz/slice"
 	"std/github.com/jpodlasnisky/DesafioUBOTs/models"
 )
 
@@ -18,10 +19,8 @@ var myClient = &http.Client{Timeout: 10 * time.Second}
 // DadosClientes lista contendo dados processados
 var DadosClientes []*models.Cliente
 
-// ValorMaiorCompra Valor de maior compra no ano 2016
 var valorMaiorCompra float64 = 0.
 
-// ClienteMaiorCompra Cliente com maior compra
 var clienteMaiorCompra string
 
 // processaDados Calculo o total em compras realizado por cada cliente
@@ -116,4 +115,24 @@ func converteCPF(cpf string) int {
 
 	return resultado
 
+}
+
+// RetornaMaiorCompraUnica ordena o array por compra unica do cliente
+func RetornaMaiorCompraUnica() *models.Cliente {
+	processaDados()
+	Dados := DadosClientes
+	slice.Sort(Dados[:], func(i, j int) bool {
+		return Dados[i].MaiorCompraUnicaDoCliente > Dados[j].MaiorCompraUnicaDoCliente
+	})
+	return Dados[0]
+}
+
+// OrdenaClientesMaiorValorTotalEmCompras Ordena lista de clientes por maior valor total em compras
+func OrdenaClientesMaiorValorTotalEmCompras() []*models.Cliente {
+	processaDados()
+	Dados := DadosClientes
+	slice.Sort(Dados[:], func(i, j int) bool {
+		return Dados[i].TotalEmComprasDoCliente > Dados[j].TotalEmComprasDoCliente
+	})
+	return Dados
 }

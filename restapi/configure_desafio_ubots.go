@@ -48,7 +48,18 @@ func configureAPI(api *operations.DesafioUbotsAPI) http.Handler {
 	}
 	api.ClienteClientesMaisFieisHandler = cliente.ClientesMaisFieisHandlerFunc(func(params cliente.ClientesMaisFieisParams, principal *models.Token) middleware.Responder {
 		return cliente.NewClientesMaisFieisOK().WithPayload(casadevinhos.RetornaDados())
+		// casadevinhos.RetornaDados()
+		// return cliente.NewClientesMaisFieisOK().WithPayload(casadevinhos.OrdenaMaiorCompraUnica())
 	})
+
+	api.ClienteClienteMaiorCompraUnicaHandler = cliente.ClienteMaiorCompraUnicaHandlerFunc(func(params cliente.ClienteMaiorCompraUnicaParams, principal *models.Token) middleware.Responder {
+		return cliente.NewClienteMaiorCompraUnicaOK().WithPayload(casadevinhos.RetornaMaiorCompraUnica())
+	})
+	// clientesGastoTotal
+	api.ClienteClientesGastoTotalHandler = cliente.ClientesGastoTotalHandlerFunc(func(params cliente.ClientesGastoTotalParams, principal *models.Token) middleware.Responder {
+		return cliente.NewClientesGastoTotalOK().WithPayload(casadevinhos.OrdenaClientesMaiorValorTotalEmCompras())
+	})
+
 	// Set your custom authorizer if needed. Default one is security.Authorized()
 	// Expected interface runtime.Authorizer
 	//

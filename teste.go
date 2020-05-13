@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
-	casadevinhos.TotalEmComprasDoCliente()
-	fmt.Println("---------------------------------------------------")
+	casadevinhos.RetornaDados()
+	fmt.Println("------------Dados retornados----------------")
+	fmt.Println("------------Imprime ordanado----------------")
+	casadevinhos.OrdenaMaiorCompraUnica()
+
 }
