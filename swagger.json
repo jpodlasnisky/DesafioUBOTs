@@ -132,7 +132,7 @@
             "name": "cpfCliente",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "string"
           }
         ],
         "responses": {
@@ -182,7 +182,7 @@
           "description": "Nome do Cliente",
           "minLength": 1
         },
-        "cpfClientes": {
+        "cpf": {
           "type": "string",
           "description": "CPF do Cliente",
           "minLength": 1

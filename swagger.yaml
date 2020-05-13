@@ -85,7 +85,7 @@ paths:
       - name: "cpfCliente"
         in: "path"
         required: true
-        type: "integer"
+        type: "string"
       responses:
         200:
           description: "Vinho recomendado"
@@ -116,7 +116,7 @@ definitions:
         type: "string"
         description: "Nome do Cliente"
         minLength: 1
-      cpfClientes:
+      cpf:
         type: "string"
         description: "CPF do Cliente"
         minLength: 1
