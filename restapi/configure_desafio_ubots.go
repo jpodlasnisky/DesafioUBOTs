@@ -46,18 +46,28 @@ func configureAPI(api *operations.DesafioUbotsAPI) http.Handler {
 		}
 		return nil, errors.New(401, "Unauthorized")
 	}
+
+	// Entrega retorno endpoint /clientesMaisFieis/{tamanhoLista}
 	api.ClienteClientesMaisFieisHandler = cliente.ClientesMaisFieisHandlerFunc(func(params cliente.ClientesMaisFieisParams, principal *models.Token) middleware.Responder {
-		return cliente.NewClientesMaisFieisOK().WithPayload(casadevinhos.RetornaClientesMaisFieis())
+		return cliente.NewClientesMaisFieisOK().WithPayload(casadevinhos.RetornaClientesMaisFieis(params.TamanhoLista))
 	})
 
+	// Entrega retorno endpoint /clienteMaiorCompraUnica
 	api.ClienteClienteMaiorCompraUnicaHandler = cliente.ClienteMaiorCompraUnicaHandlerFunc(func(params cliente.ClienteMaiorCompraUnicaParams, principal *models.Token) middleware.Responder {
-		return cliente.NewClienteMaiorCompraUnicaOK().WithPayload(casadevinhos.RetornaMaiorCompraUnica())
+		retorno, erro := casadevinhos.RetornaMaiorCompraUnica()
+		if erro == nil {
+			return cliente.NewClienteMaiorCompraUnicaOK().WithPayload(retorno)
+		}
+		mensagemDeErro := models.Erro{erro.Error()}
+		return cliente.NewClienteMaiorCompraUnicaInternalServerError().WithPayload(&mensagemDeErro)
+
 	})
-	// clientesGastoTotal
+	// Entrega retorno endpoint /clientesGastoTotal
 	api.ClienteClientesGastoTotalHandler = cliente.ClientesGastoTotalHandlerFunc(func(params cliente.ClientesGastoTotalParams, principal *models.Token) middleware.Responder {
 		return cliente.NewClientesGastoTotalOK().WithPayload(casadevinhos.OrdenaClientesMaiorValorTotalEmCompras())
 	})
 
+	// Entrega retorno endpoint /recomendacaoVinho/{cpfCliente}
 	api.VinhoRecomendacaoVinhoHandler = vinho.RecomendacaoVinhoHandlerFunc(func(params vinho.RecomendacaoVinhoParams, principal *models.Token) middleware.Responder {
 		return vinho.NewRecomendacaoVinhoOK().WithPayload(casadevinhos.RetornaVinhoMaisCompradoPeloCliente(params.CpfCliente))
 	})
