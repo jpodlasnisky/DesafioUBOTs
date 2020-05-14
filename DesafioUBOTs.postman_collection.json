@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "86ee637d-4a95-42b4-986f-0dee607603d9",
+		"name": "DesafioUBOTs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "clientesGastoTotal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clientesMaisFieis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "/clientesMaisFieis/{tamanhoLista}"
+			},
+			"response": []
+		},
+		{
+			"name": "clienteMaiorCompraUnica",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "/clienteMaiorCompraUnica"
+			},
+			"response": []
+		},
+		{
+			"name": "recomendacaoVinho",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "/recomendacaoVinho/{cpfCliente}"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
